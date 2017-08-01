@@ -1,0 +1,16 @@
+version: '3'
+services:
+  vote-app-data:
+    image: redis
+    container_name: vote-app-data
+    ports:
+        - "6379:6379"
+
+  vote-app-api:
+    build: .
+    image: vote-app-api
+    container_name: vote-app-api
+    environment:
+      - ConnectionString=vote-app-data
+    ports:
+        - "8080:80"

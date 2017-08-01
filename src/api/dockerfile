@@ -1,0 +1,17 @@
+FROM microsoft/aspnetcore-build as builder
+
+ADD . /src
+
+WORKDIR src
+
+RUN dotnet restore
+
+RUN dotnet publish -o app
+
+FROM microsoft/aspnetcore
+
+WORKDIR app
+
+COPY --from=builder src/app .
+
+ENTRYPOINT ["dotnet", "VoteApp.dll"]
