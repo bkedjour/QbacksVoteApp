@@ -5,6 +5,10 @@
 /tmp
 /out-tsc
 
+/obj
+/bin
+/wwwroot
+
 # dependencies
 /node_modules
 

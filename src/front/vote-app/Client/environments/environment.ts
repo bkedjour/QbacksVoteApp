@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  backendAddress: 'http://13.95.159.88:8080'
+  backendAddress: 'http://40.68.44.206:8080'
 };
