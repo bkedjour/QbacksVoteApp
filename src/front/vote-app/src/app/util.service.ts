@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class UtilsService {
 
-  private apiUrl = "http://localhost:8080/api/";
+  private apiUrl = environment.backendAddress + '/api/';
 
   constructor(private http: Http) { }
 
