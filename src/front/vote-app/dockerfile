@@ -20,5 +20,5 @@ COPY --from=builder src/app app
 
 WORKDIR app
 
-RUN ["dotnet","spa.dll"]
+ENTRYPOINT ["dotnet","spa.dll"]
 
