@@ -1,0 +1,24 @@
+FROM microsoft/aspnetcore-build as builder
+
+ADD . /src
+
+WORKDIR src
+
+RUN npm install -g @angular/cli
+
+RUN npm install
+
+RUN ng build --prod
+
+RUN dotnet restore
+
+RUN dotnet publish -c release -o app
+
+FROM microsoft/aspnetcore
+
+COPY --from=builder src/app app
+
+WORKDIR app
+
+RUN ["dotnet","spa.dll"]
+

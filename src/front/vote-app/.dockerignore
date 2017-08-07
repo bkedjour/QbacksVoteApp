@@ -1,0 +1,7 @@
+.vscode/*
+bin/
+obj/
+*.yaml
+e2e/
+node_modules/
+wwwroot/
