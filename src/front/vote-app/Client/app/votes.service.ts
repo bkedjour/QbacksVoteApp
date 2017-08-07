@@ -2,15 +2,20 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../environments/environment';
+import { ConfigurationService } from "./configuration.service";
 
 @Injectable()
 export class VotesService {
 
-  private apiUrl = environment.backendAddress + '/api/';
+  private apiUrl: string;
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private configurationService: ConfigurationService) {
+    configurationService.settingsLoaded.subscribe(r =>
+      this.apiUrl = configurationService.serverSettings.apiConnectionString + "/api/");
+  }
 
   getBattle(): Promise<Battle> {
+    console.log(`getting the battle ${this.apiUrl}`);
     return this.http.get(this.apiUrl + "votes/")
       .toPromise()
       .then(r => r.json() as Battle)

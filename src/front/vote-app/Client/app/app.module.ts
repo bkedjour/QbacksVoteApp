@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { VotesComponent } from './votes/votes.component';
 import { VotesService } from "./votes.service";
 import { UtilsService } from "./util.service";
+import { ConfigurationService } from './configuration.service';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,7 @@ import { UtilsService } from "./util.service";
     BrowserModule,
     HttpModule
   ],
-  providers: [VotesService, UtilsService],
+  providers: [VotesService, UtilsService, ConfigurationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

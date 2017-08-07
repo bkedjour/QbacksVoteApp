@@ -39,6 +39,8 @@ namespace spa
             services.AddMvc()
             .AddJsonOptions(o =>
             o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+
+            services.Configure<AppSettings>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
