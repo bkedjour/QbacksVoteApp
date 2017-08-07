@@ -1,4 +1,4 @@
-<div *ngIf="!isLoading && !errorOccured; else elseBlock">
+<div *ngIf="!isLoading && !errorOccured">
   <h1 class="title">{{battle.fighterOne}} VS {{battle.fighterTwo}}</h1>
   <div class="candidateBlock" (click)="onVote(battle.fighterOne)">
     <h2>{{battle.fighterOne}}</h2>
@@ -10,4 +10,4 @@
   </div>
 </div>
 <div *ngIf="errorOccured">oops! an error has occured!</div>
-<ng-template *ngIf="!errorOccured" #elseBlock>Loading</ng-template>
+<div *ngIf="isLoading && !errorOccured">Loading...</div>
