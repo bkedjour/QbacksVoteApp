@@ -1,3 +1,3 @@
 export interface IConfiguration{
-    apiConnectionString : string;
+    backendConnectionString : string;
 }

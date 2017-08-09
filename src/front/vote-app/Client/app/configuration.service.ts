@@ -23,8 +23,7 @@ export class ConfigurationService {
         const baseURI = document.baseURI.endsWith('/')? document.baseURI:`${document.baseURI}/`;
         let url = `${baseURI}api/settings`;
         this.http.get(url).subscribe((response : Response) => {
-            console.log(`settings loaded (url): ${url}`)
-            console.log(`settings loaded : ${response.json()}`)
+            console.log(`settings loaded (url): ${url}`);
             this.serverSettings = response.json();
             this.settingsLoadedSource.next();
         });

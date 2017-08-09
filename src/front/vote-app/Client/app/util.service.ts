@@ -11,11 +11,10 @@ export class UtilsService {
 
   constructor(private http: Http, configurationService: ConfigurationService) {
     configurationService.settingsLoaded.subscribe(r =>
-      this.apiUrl = configurationService.serverSettings.apiConnectionString + "/api/");
+      this.apiUrl = `http://${configurationService.serverSettings.backendConnectionString}/api/`);
   }
 
   getApiMachineName(): Promise<string> {
-    console.log(`geting the machine name ${this.apiUrl}`);
     return this.http.get(this.apiUrl + "containerinfo")
       .toPromise()
       .then(r => r.text())

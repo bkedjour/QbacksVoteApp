@@ -19,7 +19,10 @@ export class VotesComponent implements OnInit {
 
   ngOnInit() {
     this._votesService.getBattle()
-      .then(r => this.battle = r)
+      .then(r => {
+        console.log('battle is ' + r);
+        this.battle = r;
+      })
       .then(r => this.getVotes())
       .catch(e => this.handleErrors(e));
   }

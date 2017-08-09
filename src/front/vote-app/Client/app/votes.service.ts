@@ -11,22 +11,31 @@ export class VotesService {
 
   constructor(private http: Http, private configurationService: ConfigurationService) {
     configurationService.settingsLoaded.subscribe(r =>
-      this.apiUrl = configurationService.serverSettings.apiConnectionString + "/api/");
+      this.apiUrl = `http://${configurationService.serverSettings.backendConnectionString}/api/`);
   }
 
   getBattle(): Promise<Battle> {
-    console.log(`getting the battle ${this.apiUrl}`);
-    return this.http.get(this.apiUrl + "votes/")
+    console.log('getting the battle');
+    return this.configurationService.settingsLoaded
+      .map(r => {
+        console.log('ready to get the battle');
+        return this.http.get(this.apiUrl + "votes/")
+          .toPromise()
+          .then(r => r.json() as Battle)
+          .catch(this.handleError);
+      })
       .toPromise()
-      .then(r => r.json() as Battle)
       .catch(this.handleError);
   }
 
   getVote(fighter: string): Promise<number> {
-    return this.http.get(this.apiUrl + "votes/" + fighter)
-      .toPromise()
-      .then(r => r.json() as number)
-      .catch(this.handleError);
+    return this.configurationService.settingsLoaded.toPromise()
+      .then(r =>
+        this.http.get(this.apiUrl + "votes/" + fighter)
+          .toPromise()
+          .then(r => r.json() as number)
+          .catch(this.handleError)
+      );
   }
 
   addVote(fighter: string, vote: number): Promise<number> {

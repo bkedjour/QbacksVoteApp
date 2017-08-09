@@ -15,11 +15,10 @@ export class AppComponent implements OnInit {
   apiId: string;
 
   constructor(private utils: UtilsService, private settings: ConfigurationService) {
+    this.settings.load();
   }
 
   ngOnInit(): void {
-    this.settings.load();
-
     this.settings.settingsLoaded.subscribe(r => {
       this.utils.getApiMachineName().then(r => this.apiId = r);
       this.frontendId = this.utils.getFrontMachineName();
