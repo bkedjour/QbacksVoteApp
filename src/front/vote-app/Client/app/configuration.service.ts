@@ -11,21 +11,30 @@ import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ConfigurationService {
-    serverSettings : IConfiguration;
+    serverSettings: IConfiguration;
+    isReady: boolean = false;
 
-    private settingsLoadedSource = new Subject();
-    settingsLoaded = this.settingsLoadedSource.asObservable();
-
-    constructor(private http:Http) {
+    constructor(private http: Http) {
     }
 
-    load(){
-        const baseURI = document.baseURI.endsWith('/')? document.baseURI:`${document.baseURI}/`;
+    getConfiguration(): Promise<IConfiguration> {
+        const baseURI = document.baseURI.endsWith('/') ? document.baseURI : `${document.baseURI}/`;
         let url = `${baseURI}api/settings`;
-        this.http.get(url).subscribe((response : Response) => {
-            console.log(`settings loaded (url): ${url}`);
-            this.serverSettings = response.json();
-            this.settingsLoadedSource.next();
-        });
+        return this.http.get(url).toPromise()
+            .then((response: Response) => {
+                console.log(`settings loaded (url): ${url}`);
+                this.serverSettings = response.json();
+                this.isReady = true;
+                return this.serverSettings;
+            });
+    }
+
+    async getBackendUrl() {
+        if (this.isReady) {
+            return `http://${this.serverSettings.backendConnectionString}/api/`;
+        }
+
+        var config = await this.getConfiguration();
+        return `http://${config.backendConnectionString}/api/`;
     }
 }

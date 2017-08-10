@@ -72,8 +72,7 @@ namespace VoteApp.Services
         {
             var battles = new List<Battle>
             {
-                new Battle{FighterOne = "Dogs", FighterTwo = "Cats"},
-                new Battle{FighterOne = "Blue", FighterTwo = "Red"}
+                new Battle{FighterOne = "Aliens", FighterTwo = "Predators"}
             };
 
             return battles[_rand.Next(battles.Count)];

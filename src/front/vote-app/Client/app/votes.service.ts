@@ -7,40 +7,31 @@ import { ConfigurationService } from "./configuration.service";
 @Injectable()
 export class VotesService {
 
-  private apiUrl: string;
-
   constructor(private http: Http, private configurationService: ConfigurationService) {
-    configurationService.settingsLoaded.subscribe(r =>
-      this.apiUrl = `http://${configurationService.serverSettings.backendConnectionString}/api/`);
   }
 
-  getBattle(): Promise<Battle> {
-    console.log('getting the battle');
-    return this.configurationService.settingsLoaded
-      .map(r => {
-        console.log('ready to get the battle');
-        return this.http.get(this.apiUrl + "votes/")
-          .toPromise()
-          .then(r => r.json() as Battle)
-          .catch(this.handleError);
-      })
+  async getBattle(): Promise<Battle> {
+    var backendUrl = await this.configurationService.getBackendUrl();
+
+    return this.http.get(backendUrl + "votes/")
       .toPromise()
+      .then(r => r.json() as Battle)
       .catch(this.handleError);
   }
 
-  getVote(fighter: string): Promise<number> {
-    return this.configurationService.settingsLoaded.toPromise()
-      .then(r =>
-        this.http.get(this.apiUrl + "votes/" + fighter)
-          .toPromise()
-          .then(r => r.json() as number)
-          .catch(this.handleError)
-      );
+  async getVote(fighter: string): Promise<number> {
+    var backendUrl = await this.configurationService.getBackendUrl();
+
+    return this.http.get(backendUrl + "votes/" + fighter)
+      .toPromise()
+      .then(r => r.json() as number)
+      .catch(this.handleError);
   }
 
-  addVote(fighter: string, vote: number): Promise<number> {
+  async addVote(fighter: string, vote: number): Promise<number> {
+    var backendUrl = await this.configurationService.getBackendUrl();
 
-    return this.http.post(this.apiUrl + "votes/" + fighter, JSON.stringify(vote),
+    return this.http.post(backendUrl + "votes/" + fighter, JSON.stringify(vote),
       { headers: new Headers({ 'Content-Type': 'application/json' }) })
       .toPromise()
       .then(r => r.json() as number)

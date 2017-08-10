@@ -16,5 +16,11 @@ namespace spa.Controllers
         {
             return Json(_settings);
         }
+
+        [HttpGet("MachineName")]
+        public IActionResult GetFrontendMachineName()
+        {
+            return Ok(System.Environment.MachineName);
+        }
     }
 }

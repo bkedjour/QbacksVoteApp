@@ -12,16 +12,13 @@ export class AppComponent implements OnInit {
   title = 'Vote APP';
 
   frontendId: string;
-  apiId: string;
+  backendId: string;
 
-  constructor(private utils: UtilsService, private settings: ConfigurationService) {
-    this.settings.load();
+  constructor(private utils: UtilsService) {
   }
 
-  ngOnInit(): void {
-    this.settings.settingsLoaded.subscribe(r => {
-      this.utils.getApiMachineName().then(r => this.apiId = r);
-      this.frontendId = this.utils.getFrontMachineName();
-    });
+  async ngOnInit() {
+    this.backendId = await this.utils.getApiMachineName();
+    this.frontendId = await this.utils.getFrontMachineName();
   }
 }
