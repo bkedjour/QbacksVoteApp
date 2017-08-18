@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.backendId = await this.utils.getApiMachineName();
+    this.backendId = await this.utils.getBackendMachineName();
     this.frontendId = await this.utils.getFrontMachineName();
   }
 }

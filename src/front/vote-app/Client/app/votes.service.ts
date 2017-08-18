@@ -2,36 +2,29 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../environments/environment';
-import { ConfigurationService } from "./configuration.service";
 
 @Injectable()
 export class VotesService {
 
-  constructor(private http: Http, private configurationService: ConfigurationService) {
+  constructor(private http: Http) {
   }
 
   async getBattle(): Promise<Battle> {
-    var backendUrl = await this.configurationService.getBackendUrl();
-
-    return this.http.get(backendUrl + "votes/")
+    return this.http.get(environment.baseURI + "votes/")
       .toPromise()
       .then(r => r.json() as Battle)
       .catch(this.handleError);
   }
 
   async getVote(fighter: string): Promise<number> {
-    var backendUrl = await this.configurationService.getBackendUrl();
-
-    return this.http.get(backendUrl + "votes/" + fighter)
+    return this.http.get(environment.baseURI + "votes/" + fighter)
       .toPromise()
       .then(r => r.json() as number)
       .catch(this.handleError);
   }
 
   async addVote(fighter: string, vote: number): Promise<number> {
-    var backendUrl = await this.configurationService.getBackendUrl();
-
-    return this.http.post(backendUrl + "votes/" + fighter, JSON.stringify(vote),
+    return this.http.post(environment.baseURI + "votes/" + fighter, JSON.stringify(vote),
       { headers: new Headers({ 'Content-Type': 'application/json' }) })
       .toPromise()
       .then(r => r.json() as number)

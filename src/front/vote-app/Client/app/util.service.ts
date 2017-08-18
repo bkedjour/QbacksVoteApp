@@ -2,28 +2,23 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import { environment } from '../environments/environment';
-import { ConfigurationService } from "./configuration.service";
 import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class UtilsService {
 
-  constructor(private http: Http, private configurationService: ConfigurationService) {
+  constructor(private http: Http) {
   }
 
-  async getApiMachineName(): Promise<string> {
-    var backendUrl = await this.configurationService.getBackendUrl();
-
-    return this.http.get(backendUrl + "containerinfo")
+  getBackendMachineName(): Promise<string> {
+    return this.http.get(environment.baseURI + "environment/machinename/back")
       .toPromise()
       .then(r => r.text())
       .catch(this.handleError);
   }
 
   getFrontMachineName(): Promise<string> {
-    const baseURI = document.baseURI.endsWith('/') ? document.baseURI : `${document.baseURI}/`;
-    let url = `${baseURI}api/settings/machinename`;
-    return this.http.get(url)
+    return this.http.get(environment.baseURI + "environment/machinename/front")
       .toPromise()
       .then(id => id.text())
       .catch(this.handleError);

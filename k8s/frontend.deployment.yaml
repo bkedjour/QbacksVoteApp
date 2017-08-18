@@ -15,6 +15,6 @@ spec:
         image: bkedjour/vote-app-front:0.8
         env:
         - name: BackendConnectionString
-          value:  10.0.157.188
+          value:  vote-app-back-end
         ports:
         - containerPort: 80
