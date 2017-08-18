@@ -1,0 +1,15 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: vote-app-data
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: vote-app
+        component: data
+    spec:
+      containers:
+      - name: data
+        image: redis:4.0.1-alpine
