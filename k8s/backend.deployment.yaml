@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
       - name: back-end
-        image: bkedjour/vote-app-backend:0.8
+        image: bkedjour/vote-app-backend:1.0
         env:
         - name: ConnectionString
           value:  vote-app-data

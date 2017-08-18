@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UtilsService } from "./util.service";
+import { environment } from "../environments/environment";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ export class AppComponent implements OnInit {
 
   frontendId: string;
   backendId: string;
+  appVersion: string;
 
   constructor(private utils: UtilsService) {
   }
@@ -19,5 +21,6 @@ export class AppComponent implements OnInit {
   async ngOnInit() {
     this.backendId = await this.utils.getBackendMachineName();
     this.frontendId = await this.utils.getFrontMachineName();
+    this.appVersion = await this.utils.getAppVersion();
   }
 }

@@ -28,5 +28,11 @@ namespace spa.Controllers
 
             return NotFound("unkown tier");
         }
+
+        [HttpGet("version")]
+        public IActionResult GetAppVersion()
+        {
+            return Ok("v1.0");
+        }
     }
 }

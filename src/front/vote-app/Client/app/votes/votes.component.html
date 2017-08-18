@@ -1,13 +1,17 @@
-<div *ngIf="!isLoading && !errorOccured">
-  <h1 class="title">{{battle.fighterOne}} VS {{battle.fighterTwo}}</h1>
-  <div class="candidateBlock" (click)="onVote(battle.fighterOne)">
-    <h2>{{battle.fighterOne}}</h2>
-    <p>{{fighterOneVote}} votes</p>
-  </div>
-  <div class="candidateBlock" (click)="onVote(battle.fighterTwo)">
-    <h2>{{battle.fighterTwo}}</h2>
-    <p>{{fighterTwoVote}} votes</p>
+<div id="content-container">
+  <div id="content-container-center">
+    <div *ngIf="!isLoading && !errorOccured">
+      <h3 class="title">{{battle.fighterOne}} VS {{battle.fighterTwo}}</h3>
+      <div class="candidateBlock fighterOne" (click)="onVote(battle.fighterOne)">
+        <h2>{{battle.fighterOne}}</h2>
+        <span class="votesCount">({{fighterOneVote}} votes)</span>
+      </div>
+      <div class="candidateBlock fighterTwo" (click)="onVote(battle.fighterTwo)">
+        <h2>{{battle.fighterTwo}}</h2>
+        <span class="votesCount">({{fighterTwoVote}} votes)</span>
+      </div>
+    </div>
+    <div *ngIf="errorOccured">oops! an error has occured!</div>
+    <div *ngIf="isLoading && !errorOccured">Loading...</div>
   </div>
 </div>
-<div *ngIf="errorOccured">oops! an error has occured!</div>
-<div *ngIf="isLoading && !errorOccured">Loading...</div>

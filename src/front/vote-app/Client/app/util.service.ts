@@ -24,6 +24,13 @@ export class UtilsService {
       .catch(this.handleError);
   }
 
+  getAppVersion(): Promise<string> {
+    return this.http.get(environment.baseURI + "environment/version")
+      .toPromise()
+      .then(v => v.text())
+      .catch(this.handleError);
+  }
+
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
