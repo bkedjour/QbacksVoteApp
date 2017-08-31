@@ -32,7 +32,7 @@ namespace spa.Controllers
         [HttpGet("version")]
         public IActionResult GetAppVersion()
         {
-            return Ok("v1.0");
+            return Ok("v2.0");
         }
     }
 }

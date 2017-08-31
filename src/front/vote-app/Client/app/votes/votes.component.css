@@ -21,20 +21,20 @@
 }
 
 .fighterOne{
-  background-color:#009688;
+  background-color:#00BCD4;
 }
 
 .fighterTwo{
-  background-color: #3F51B5;
+  background-color: #673AB7;
 }
 
 div.fighterOne:hover, div.fighterOne:focus{
-  background-color: #004D40;
+  background-color: #006064;
   cursor: pointer;
 }
 
 div.fighterTwo:hover, div.fighterTwo:focus{
-    background-color: #1A237E;
+    background-color: #311B92;
     cursor: pointer;
 }
 
